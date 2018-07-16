@@ -1,7 +1,7 @@
+<div class="container">
 <div class="row">
 	<div class="span4">
-		<!-- <h4>Registration</h4> -->
-		<fieldset>
+		<h4><b>Registration</b></h4>
 		<div id="errormessage"></div>
 		<form action="" method="post" role="form" class="clsForm">
 			<div class="row">
@@ -26,6 +26,12 @@
 					<div class="validation"></div>
 				</div>
 				<div class="span4 form-group">
+					<input type="password" name="confirmPassword" id="confirmPassword"
+						placeholder="Confirm Password" data-rule="minlen:4"
+						data-msg="Please enter at least 4 char" />
+					<div class="validation"></div>
+				</div>
+				<div class="span4 form-group">
 					<div class="validation"></div>
 					<div>
 						<button class="btn btn-theme btn-medium margintop10" type="submit">Signup</button>
@@ -33,6 +39,6 @@
 				</div>
 			</div>
 		</form>
-		</fieldset>
 	</div>
+</div>
 </div>
