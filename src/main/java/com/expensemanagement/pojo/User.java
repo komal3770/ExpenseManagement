@@ -2,6 +2,8 @@ package com.expensemanagement.pojo;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "user")
 public class User{
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 	
 	@Field(value="email_id")
@@ -62,5 +65,12 @@ public class User{
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", password=" + password
+				+ ", createdDate=" + createdDate + "]";
+	}
+	
 	
 }

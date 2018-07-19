@@ -1,0 +1,20 @@
+//DB Creation
+use expensemanagement
+
+//For Auto Increment Id
+db.counters.insert({"_id":"user_id","seq":0})
+
+function getNextSequence(name) {
+    var ret = db.counters.findAndModify(
+           {
+             query: { _id: name },
+             update: { $inc: { seq: 1 } },
+             new: true
+           }
+    );
+
+    return ret.seq;
+ }
+
+//User collection
+db.expensemanagement.user()

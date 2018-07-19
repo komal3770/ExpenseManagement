@@ -20,6 +20,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	private NextSequenceService nextSequenceService;
+	
 	@Override
 	public List<User> findAll() {
 		return userRepository.findAll();
@@ -32,7 +35,9 @@ public class UserServiceImpl implements UserService{
 		int status=0;
 		if(msg==null){
 			String encodedPassword = passwordEncoder.encode(user.getPassword());
+			user.setId(nextSequenceService.getNextSequence("user_id"));
 			user.setPassword(encodedPassword);
+			System.out.println(user);
 			userRepository.save(user);
 			status=1;
 			msg = "Registered Successfully";
