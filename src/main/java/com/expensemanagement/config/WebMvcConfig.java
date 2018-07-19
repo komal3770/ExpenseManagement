@@ -1,4 +1,4 @@
-package com.myproject.config;
+package com.expensemanagement.config;
 
 import java.util.Locale;
 

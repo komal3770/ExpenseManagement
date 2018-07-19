@@ -1,9 +1,9 @@
-package com.myproject.services;
+package com.expensemanagement.services;
 
 import java.util.List;
 import java.util.Map;
 
-import com.myproject.pojo.User;
+import com.expensemanagement.pojo.User;
 
 public interface UserService {
 	List<User> findAll();

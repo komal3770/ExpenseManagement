@@ -1,4 +1,4 @@
-package com.myproject.services;
+package com.expensemanagement.services;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.myproject.dao.UserRepository;
-import com.myproject.pojo.User;
+import com.expensemanagement.dao.UserRepository;
+import com.expensemanagement.pojo.User;
 
 @Service
 public class UserServiceImpl implements UserService{

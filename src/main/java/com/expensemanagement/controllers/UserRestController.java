@@ -1,4 +1,4 @@
-package com.myproject.controllers;
+package com.expensemanagement.controllers;
 
 import java.util.List;
 import java.util.Map;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.myproject.pojo.User;
-import com.myproject.services.UserService;
+import com.expensemanagement.pojo.User;
+import com.expensemanagement.services.UserService;
 
 @RequestMapping(value="/users")
 @RestController

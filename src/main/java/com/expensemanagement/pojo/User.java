@@ -1,4 +1,4 @@
-package com.myproject.pojo;
+package com.expensemanagement.pojo;
 
 import java.util.Date;
 

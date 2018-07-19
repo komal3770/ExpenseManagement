@@ -1,4 +1,4 @@
-package com.myproject.config;
+package com.expensemanagement.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
