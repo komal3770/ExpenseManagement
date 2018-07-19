@@ -1,4 +1,4 @@
-package com.myproject.MyProject;
+package com.myproject.config;
 
 import java.util.Locale;
 
@@ -54,7 +54,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("home");
-        registry.addViewController("/home").setViewName("home");
+        //registry.addViewController("/home").setViewName("home");
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/signup").setViewName("signup");
 	}
@@ -86,4 +86,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("/static/");
     }
+    
+    /*@Bean
+    public FieldNamingStrategy fieldNamingStratergy(){
+    	CamelCaseSplittingFieldNamingStrategy camelCase = new CamelCaseSplittingFieldNamingStrategy("_");
+    	return camelCase;
+    }*/
 }
