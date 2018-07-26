@@ -7,21 +7,11 @@
 				</p>
 			</div>
 			<div class="span6">
-
-				<ul class="social-network">
-					<li><a href="#" data-placement="bottom" title="Facebook"><i
-							class="icon-facebook icon-white"></i></a></li>
-					<li><a href="#" data-placement="bottom" title="Twitter"><i
-							class="icon-twitter icon-white"></i></a></li>
-					<li><a href="#" data-placement="bottom" title="Linkedin"><i
-							class="icon-linkedin icon-white"></i></a></li>
-					<li><a href="#" data-placement="bottom" title="Pinterest"><i
-							class="icon-pinterest  icon-white"></i></a></li>
-					<li><a href="#" data-placement="bottom" title="Google +"><i
-							class="icon-google-plus icon-white"></i></a></li>
-					<li><a href="#" data-placement="bottom" title="Dribbble"><i
-							class="icon-dribbble icon-white"></i></a></li>
-				</ul>
+				<p class="topcontact" style="float:right">
+					<i class="icon-user"></i>&nbsp; ${pageContext.request.userPrincipal.name}
+					
+					<a>Logout</a>
+				</p>
 
 			</div>
 		</div>

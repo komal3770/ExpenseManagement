@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.expensemanagement.dao.UserRepository;
 import com.expensemanagement.pojo.User;
+import com.expensemanagement.utility.Constants;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -34,13 +35,20 @@ public class UserServiceImpl implements UserService{
 		String msg = validateUser(user);
 		int status=0;
 		if(msg==null){
-			String encodedPassword = passwordEncoder.encode(user.getPassword());
-			user.setId(nextSequenceService.getNextSequence("user_id"));
-			user.setPassword(encodedPassword);
-			System.out.println(user);
-			userRepository.save(user);
-			status=1;
-			msg = "Registered Successfully";
+			User existingUser = userRepository.findByEmailId(user.getEmailId());
+			if(existingUser == null){
+				String encodedPassword = passwordEncoder.encode(user.getPassword());
+				user.setId(nextSequenceService.getNextSequence(Constants.SEQ_KEY_USER_ID));
+				user.setPassword(encodedPassword);
+				System.out.println(user);
+				userRepository.save(user);
+				status=1;
+				msg = "Registered Successfully";
+			}
+			else{
+				status=0;
+				msg = "EmailId already exist";
+			}
 		}
 		resp.put("message", msg);
 		resp.put("status", status);
@@ -64,6 +72,11 @@ public class UserServiceImpl implements UserService{
 			msg = "User details are empty";
 		}
 		return msg;
+	}
+
+	@Override
+	public User findByEmailId(String emailId) {
+		return userRepository.findByEmailId(emailId);
 	}
 
 }

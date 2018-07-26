@@ -9,4 +9,6 @@ public interface UserService {
 	List<User> findAll();
 	
 	Map<String,Object> registerUser(User user);
+	
+	User findByEmailId(String emailId);
 }

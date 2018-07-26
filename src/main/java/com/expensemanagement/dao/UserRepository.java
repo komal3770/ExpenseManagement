@@ -7,5 +7,5 @@ import com.expensemanagement.pojo.User;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, Integer>{
-
+	User findByEmailId(String emailId);
 }
