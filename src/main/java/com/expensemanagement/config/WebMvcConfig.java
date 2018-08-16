@@ -7,19 +7,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
-import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@SuppressWarnings("deprecation")
 @Configuration
-public class WebMvcConfig extends WebMvcConfigurerAdapter{
+public class WebMvcConfig implements WebMvcConfigurer{
 	private static final String MESSAGE_SOURCE = "classpath:/i18n/messages";
 	private static final String LOCALE_EN = "en";
 	
@@ -53,32 +51,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("home");
+        registry.addViewController("/").setViewName("forward:homepage.html");
         //registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/signup").setViewName("signup");
+        /*registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/signup").setViewName("signup");*/
 	}
 	
-	/**
-     * Configure TilesConfigurer.
-     */
-    @Bean
-    public TilesConfigurer tilesConfigurer(){
-        TilesConfigurer tilesConfigurer = new TilesConfigurer();
-        tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/tiles/**/tiles.xml"});
-        tilesConfigurer.setCheckRefresh(true);
-        return tilesConfigurer;
-    }
- 
-    /**
-     * Configure ViewResolvers to deliver preferred views.
-     */
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        TilesViewResolver viewResolver = new TilesViewResolver();
-        registry.viewResolver(viewResolver);
-    }
-     
     /**
      * Configure ResourceHandlers to serve static resources like CSS/ Javascript etc...
      */

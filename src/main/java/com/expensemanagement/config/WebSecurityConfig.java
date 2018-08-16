@@ -24,31 +24,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/","/resources/**","/home","/signup","/login").permitAll()
+		.antMatchers("/resources/**","/assets/**","/home","/signup","/login").permitAll()
 		.anyRequest().permitAll()
-		/*.and()
-        .authenticationProvider(authenticationProvider())
+		.and()
+        //.authenticationProvider(authenticationProvider())
         .exceptionHandling()
-        .authenticationEntryPoint(authenticationEntryPoint)*/
+        //.authenticationEntryPoint(authenticationEntryPoint)
         .and()
         .formLogin()
-        .loginPage("/login") //redirect to my project login page instead of spring security login
+        .loginPage("/login.html") //redirect to my project login page instead of spring security login
         .permitAll()
-        /* .loginProcessingUrl("/login")
+         .loginProcessingUrl("/login")
         .usernameParameter("emailId")
         .passwordParameter("password")
-        .successHandler(authSuccessHandler)
-        .failureHandler(authFailureHandler)*/
+        //.successHandler(authSuccessHandler)
+        //.failureHandler(authFailureHandler)
         .and()
         .logout()
-        .permitAll()
+        .permitAll();
         /*.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .logoutSuccessHandler(logoutSuccessHandler)
         .and()
         .sessionManagement()
         .maximumSessions(1)*/;
 
-		//http.authorizeRequests().anyRequest().authenticated();
+		http.authorizeRequests().anyRequest().authenticated();
 	}
 	
 	@Override
