@@ -1,10 +1,15 @@
 package com.expensemanagement.services;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +28,9 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private NextSequenceService nextSequenceService;
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
 	@Override
 	public List<User> findAll() {
@@ -77,6 +85,18 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findByEmailId(String emailId) {
 		return userRepository.findByEmailId(emailId);
+	}
+
+	public User getCurrentLoggedInUser(HttpServletRequest request) {
+		Principal principal = request.getUserPrincipal();
+		if(principal!=null){
+			UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getName());
+			if(userDetails!=null){
+				User user = userRepository.findByEmailId(userDetails.getUsername());
+				return user;
+			}
+		}
+		return null;
 	}
 
 }

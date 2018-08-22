@@ -5,11 +5,32 @@
 <!-- Styles -->
 <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
 <link href="assets/css/lib/themify-icons.css" rel="stylesheet">
-<!-- <link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet"> -->
+<link href="assets/css/lib/menubar/sidebar.css" rel="stylesheet">
 <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
 <link href="assets/css/lib/helper.css" rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({                                      
+			url: apiUrl+"/users/getCurrentlyLoggedInUser",            
+		    type: "post",
+		    success: function(user){
+				$("#loggedInUser").text(user.username);
+		    }
+		});
+		
+		$("#linkLogout").click(function(e){
+			e.preventDefault();
+			$.ajax({                                      
+				url: apiUrl+"/logout",            
+			    type: "post",
+			    success: function(data){
+					alert("logged out");
+			    }
+			});
+		});
+	});
+</script>
 </head>
 <body>
 	<div
@@ -25,12 +46,9 @@
 				</div>
 				<ul>
 					<li class="label">Main</li>
-					<li class="active"><a class="sidebar-sub-toggle"><i
-							class="ti-home"></i> Dashboard </a></li>
-
-					<li><a href="app-event-calender.html"><i class="ti-user"></i>
-							Sign up </a></li>
-					<li class="label">Features</li>
+						<li id="homepage"><a href="homepage.html" ><i class="ti-home"></i> Dashboard </a></li>
+						<li id="budgetHistory"><a href="budget.html"><i class="ti-bar-chart"></i>Budget History</a></li>
+						<li id="expenseHistory"><a href="expense.html"><i class="ti-money"></i>Expense History</a></li>
 				</ul>
 			</div>
 		</div>
@@ -49,17 +67,13 @@
 					</div>
 					<div class="float-right">
 						<ul>
-							<li class="header-icon dib"><span class="user-avatar">Register
-									<i class="ti-angle-down f-s-10"></i>
+							<li class="header-icon dib"><span class="user-avatar" id="loggedInUser">UserName<i class="ti-angle-down f-s-10"></i>
 							</span>
 								<div class="drop-down dropdown-profile">
 									<div class="dropdown-content-body">
 										<ul>
-											<li><a href="#"><i class="ti-user"></i> <span>Sign
-														In</span></a></li>
-
-											<li><a href="#"><i class="ti-email"></i> <span>Sign
-														Up</span></a></li>
+											<li><a href="#"><i class="ti-user"></i> <span>Profile</span></a></li>
+											<li><a href="#" id="linkLogout"><i class="ti-power-off"></i> <span>Logout</span></a></li>
 										</ul>
 									</div>
 								</div></li>

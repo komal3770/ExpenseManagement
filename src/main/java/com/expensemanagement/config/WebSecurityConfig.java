@@ -12,6 +12,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.expensemanagement.authentication.CustomAuthFailureHandler;
+import com.expensemanagement.authentication.CustomAuthSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,11 +24,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	private CustomAuthSuccessHandler customAuthSuccessHandler;
+	
+	@Autowired
+	private CustomAuthFailureHandler customAuthFailureHandler;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/resources/**","/assets/**","/home","/signup","/login").permitAll()
+		.antMatchers("/resources/**","/assets/**","/signup","/login").permitAll()
 		.anyRequest().permitAll()
 		.and()
         //.authenticationProvider(authenticationProvider())
@@ -34,21 +44,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         .formLogin()
         .loginPage("/login.html") //redirect to my project login page instead of spring security login
         .permitAll()
-         .loginProcessingUrl("/login")
+        .loginProcessingUrl("/login")
         .usernameParameter("emailId")
         .passwordParameter("password")
-        //.successHandler(authSuccessHandler)
-        //.failureHandler(authFailureHandler)
+        .successHandler(customAuthSuccessHandler)
+        .failureHandler(customAuthFailureHandler)
         .and()
         .logout()
-        .permitAll();
-        /*.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-        .logoutSuccessHandler(logoutSuccessHandler)
+        .permitAll()
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+        //.logoutSuccessHandler(logoutSuccessHandler)
         .and()
         .sessionManagement()
-        .maximumSessions(1)*/;
+        .maximumSessions(1);
 
-		http.authorizeRequests().anyRequest().authenticated();
+		//http.authorizeRequests().anyRequest().authenticated();
 	}
 	
 	@Override

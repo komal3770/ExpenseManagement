@@ -18,6 +18,7 @@
     <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
     <!-- Styles -->
     <link href="assets/css/lib/font-awesome.min.css" rel="stylesheet">
@@ -25,11 +26,31 @@
     <link href="assets/css/lib/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/lib/helper.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/lib/sweetalert/sweetalert.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
     <script src="assets/js/lib/jquery.min.js"></script>
+    <script src="assets/js/lib/sweetalert/sweetalert.min.js"></script>
 	<script src="assets/js/common.js"></script>
     <script type="text/javascript">
     	$(document).ready(function(){
     		$("#frmLogin").attr("action",apiUrl+"/login");
+    		$(".errormsg").hide();
+    		
+    		$("#btnSignIn").click(function(e){
+    			e.preventDefault();
+    			$.ajax({
+    				url: apiUrl+"/login",
+    				type:"POST",
+    		        data: $("#frmLogin").serialize(),
+    		        success: function(data, textStatus, xhr) {
+    		        	window.location.href=apiUrl+"/homepage.html";
+    		        },
+    		        error: function(data, textStatus, xhr) {
+    		        	sweetAlert("Oops...", "Invalid credentials", "error");
+    		        },
+    			});
+    		});
+    		
     	});
     </script>
 </head>
@@ -45,6 +66,7 @@
                         </div>
                         <div class="login-form">
                             <h4>Login</h4>
+                            <div class="form-group"><label class="errormsg" style="color:red"> Invalid Credentials </label></div>
                             <form method="post" id="frmLogin">
                                 <div class="form-group">
                                     <label>Email address</label>
@@ -63,7 +85,7 @@
 									</label>
 
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Sign in</button>
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" id="btnSignIn">Sign in</button>
                                 <div class="register-link m-t-15 text-center">
                                     <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
                                 </div>

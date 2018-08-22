@@ -35,13 +35,21 @@
 
     // no transition enable
     _this.$body.addClass('sidebar-notransition');
-
+   
     // init Nano Scroller
     _this.$nano.nanoScroller({ preventPageScrolling: true });
 
     // sidebar toggle
     $('.sidebar-toggle').on( 'click', function(e) {
       e.preventDefault();
+     console.log($(this).attr("class"));
+     console.log($(this).attr("class") == "hamburger sidebar-toggle is-active");
+      if($(this).attr("class") != "hamburger sidebar-toggle is-active"){
+    	  $(".content-wrap").attr("style","margin-left: 60px;");//60px
+      }
+      else{
+    	  $(".content-wrap").attr("style","margin-left: 250px; -webkit-transition: margin-left 300ms ease-in-out;transition: margin-left 300ms ease-in-out;");//250px
+      }
       _this.togglesidebar();
     });
 
